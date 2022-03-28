@@ -1,0 +1,9 @@
+---
+- hosts: webservers
+  remote_user: ansible
+  become: yes
+
+  roles:
+#   - httpd
+#   - firewalld
+    - tomcat9
