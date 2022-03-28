@@ -1,0 +1,85 @@
+---
+# tasks file for tomcat9
+
+- name: upgrade all packages
+  yum:
+    name: '*'
+    state: latest
+
+- name: install the latest version of java
+  yum:
+    name: java-11-openjdk
+    state: latest
+
+- name: create a tomcat user
+  user:
+    name: tomcat
+    shell: /bin/false
+    group: tomcat
+
+- name: Create tomcat group
+  group:
+    name: tomcat
+    state: present
+
+
+- name: Create a tomcat directory
+  file:
+    path: /opt/tomcat
+    state: directory
+    mode: '0755'
+
+#- name: Grant tomcat directory permission
+#  file:
+#    path: /opt/tomcat
+#    mode: '0755'
+#    owner: tomcat
+#    group: tomcat
+#    recurse: yes
+
+- name: Download tomcat
+  get_url:
+    url: "{{ tomcat_link }}"
+    dest: /opt
+
+
+- name: Unarchive a file that is already on the remote machine
+  unarchive:
+    src: /opt/{{ tomcat_pkg }}
+    dest: /opt/tomcat
+    remote_src: yes
+
+- name: Grant tomcat directory permission
+  file:
+    path: /opt/tomcat
+    mode: '0775'
+    owner: tomcat
+    group: tomcat
+    recurse: yes
+
+- name: copy tomcat service
+  copy:
+    src: files/tomcat.service
+    dest: /etc/systemd/system
+
+- name: reload tomcat service
+  systemd:
+    daemon_reload: yes
+
+- name: Start tomcat service
+  service:
+    name: tomcat.service
+    state: started
+
+- name: Enable tomcat service
+  service:
+    name: tomcat.service
+    enabled: yes
+
+- name: Firewalld to open the required port
+  firewalld:
+    port: "{{ port }}/{{ proto }}"
+    permanent: yes
+    immediate: yes
+    state: enabled
+    zone: "{{ zone }}"
