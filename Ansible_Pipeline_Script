@@ -1,0 +1,20 @@
+pipeline {
+    agent any
+    stages {
+      stage ('Git checkout') {
+        steps {
+              git branch: 'main', changelog: false, credentialsId: 'Ola', poll: false, url: 'https://github.com/adeolaoruku/tomcat9.git' 
+            }
+        }       
+         
+       stage ('Execute Ansible Playbook') {
+        steps {
+             ansiblePlaybook credentialsId: 'Ansible_Tomcat', installation: 'Ansible_Automation', inventory: '/home/tomcat/.jenkins/workspace/ansible-job1/inventory/hosts', playbook: '/home/tomcat/.jenkins/workspace/ansible-job1/playbook.yml' 
+            }
+        }    
+        
+    }
+}
+
+
+
