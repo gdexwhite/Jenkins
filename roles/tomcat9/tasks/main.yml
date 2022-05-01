@@ -1,0 +1,57 @@
+- name: Download tomcat
+  get_url:
+    url: "{{ tomcat_link }}"
+    dest: /opt/tomcat
+
+
+- name: Unarchive a file that is already on the remote machine
+  unarchive:
+    src: "/opt/tomcat/{{ tomcat_pkg }}"
+    dest: /opt/tomcat/
+    remote_src: yes
+
+- name: Grant tomcat directory permission
+  file:
+    path: /opt/tomcat
+    mode: '0775'
+    owner: tomcat
+    group: tomcat
+    recurse: yes
+
+- name: copy tomcat service to systemd
+  copy:
+    src: ansible_roles/tomcat9/files/tomcat.service
+    dest: /etc/systemd/system
+    owner: root
+    group: root
+    mode: 0755
+
+- name: reload tomcat service
+  systemd:
+    daemon_reload: yes
+
+- name: Start tomcat service
+  service:
+    name: tomcat.service
+    state: started
+
+- name: Enable tomcat service
+  service:
+    name: tomcat.service
+    enabled: yes
+
+- name: copy tomcat-users.xml to tomcat_home/conf
+  copy:
+    src: ansible_roles/tomcat9/files/tomcat-users.xml
+    dest: /opt/tomcat/apache-tomcat-9.0.60/conf
+    owner: tomcat
+    group: tomcat
+    mode: 0755
+
+#- name: Firewalld to open the required port
+#  firewalld:
+#    port: "{{ port }}/{{ proto }}"
+#    permanent: yes
+#    immediate: yes
+#    state: enabled
+#    zone: "{{ zone }}"
