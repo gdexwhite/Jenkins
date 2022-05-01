@@ -1,5 +1,5 @@
 ---
-- hosts: webservers
+- hosts: Prod
   remote_user: ansible
   become: yes
 
