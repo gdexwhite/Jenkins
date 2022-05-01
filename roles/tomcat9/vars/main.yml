@@ -1,16 +1,12 @@
 ---
 # vars file for tomcat9
 
-tomcat_link: https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.60/bin/apache-tomcat-9.0.60.tar.gz
+tomcat_link: https://archive.apache.org/dist/tomcat/tomcat-9/v9.0.60/bin/apache-tomcat-9.0.60.tar.gz
 
 tomcat_pkg: apache-tomcat-9.0.60.tar.gz
 
-port: "8080"
+#port: "8080"
 
-proto: "tcp"
+#proto: "tcp"
 
-zone: "public"
-
-users.xml: /opt/tomcat/apache-tomcat-9.0.60/conf/tomcat-users.xml
-
-context.xml: /opt/tomcat/apache-tomcat-9.0.60/webapps/manager/META-INF/context.xml
+#zone: "public"
