@@ -9,7 +9,7 @@ pipeline {
          
        stage ('Execute Ansible Playbook') {
         steps {
-             ansiblePlaybook credentialsId: 'Ansible_Tomcat', installation: 'Ansible_Automation', inventory: '/home/tomcat/.jenkins/workspace/ansible-job1/inventory/hosts', playbook: '/home/tomcat/.jenkins/workspace/ansible-job1/playbook.yml' 
+             ansiblePlaybook credentialsId: 'Ansible_Tomcat', installation: 'Ansible_Automation', inventory: '/home/tomcat/.jenkins/workspace/ansible-job1/inventory/hosts', playbook: '/home/tomcat/.jenkins/workspace/ansible-job1/playbook_roles.yml' 
             }
         }    
         
