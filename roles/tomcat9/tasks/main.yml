@@ -42,8 +42,8 @@
 
 - name: copy tomcat-users.xml to tomcat_home/conf
   copy:
-    src: ansible_roles/tomcat9/files/tomcat-users.xml
-    dest: /opt/tomcat/apache-tomcat-9.0.60/conf
+    src: "{{ users_xml }}"
+    dest: "{{ conf_link }}"
     owner: tomcat
     group: tomcat
     mode: 0755
