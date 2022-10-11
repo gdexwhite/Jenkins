@@ -1,9 +1,10 @@
 ---
 - hosts: Prod
-  remote_user: ansible
+#  remote_user: ansible
   become: yes
 
   roles:
-#   - httpd
+    - /home/ansible/ansible_roles/tomcat9
+#   - /home/ansible/ansible_roles/httpd
 #   - firewalld
-    - tomcat9
+
