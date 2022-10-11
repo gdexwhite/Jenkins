@@ -1,3 +1,40 @@
+---
+# tasks file for tomcat9
+
+- name: upgrade all packages
+  yum:
+    name: '*'
+    state: latest
+
+- name: install the latest version of java
+  yum:
+    name: java-11-openjdk
+    state: latest
+
+- name: Create tomcat group
+  group:
+    name: tomcat
+    state: present
+
+
+- name: create a tomcat user
+  user:
+    name: tomcat
+    shell: /bin/false
+    group: tomcat
+
+
+- name: Create a tomcat directory and Grant permission
+  file:
+    path: /opt/tomcat
+    state: directory
+    mode: '0755'
+    owner: tomcat
+    group: tomcat
+    recurse: yes
+
+
+
 - name: Download tomcat
   get_url:
     url: "{{ tomcat_link }}"
@@ -9,19 +46,43 @@
     src: "/opt/tomcat/{{ tomcat_pkg }}"
     dest: /opt/tomcat/
     remote_src: yes
-
-- name: Grant tomcat directory permission
-  file:
-    path: /opt/tomcat
-    mode: '0775'
+    mode: 0755
     owner: tomcat
     group: tomcat
-    recurse: yes
+
+
+- name: copy tomcat-users.xml to tomcat_home/conf
+  copy:
+    src: "{{ users_xml }}"
+    dest: "{{ conf_link }}"
+    owner: tomcat
+    group: tomcat
+    mode: 0755
+
+
+- name: copy context.xml to tomcat_home/meta-inf
+  copy:
+    src: "{{ context_xml }}"
+    dest: "{{ meta_inf }}"
+    owner: tomcat
+    group: tomcat
+    mode: 0755
+
+
+- name: Firewalld to open the required port
+  firewalld:
+    port: "{{ port }}/{{ proto }}"
+    permanent: yes
+    immediate: yes
+    state: enabled
+    zone: "{{ zone }}"
+
+
 
 - name: copy tomcat service to systemd
   copy:
     src: ansible_roles/tomcat9/files/tomcat.service
-    dest: /etc/systemd/system
+    dest: /etc/systemd/system/
     owner: root
     group: root
     mode: 0755
@@ -40,18 +101,11 @@
     name: tomcat.service
     enabled: yes
 
-- name: copy tomcat-users.xml to tomcat_home/conf
-  copy:
-    src: "{{ users_xml }}"
-    dest: "{{ conf_link }}"
-    owner: tomcat
-    group: tomcat
+- name: download jenkins
+  get_url:
+    url: "{{ jenkins_pkg }}"
+    dest: "{{ webapps_link }}"
+    owner: root
+    group: root
     mode: 0755
 
-#- name: Firewalld to open the required port
-#  firewalld:
-#    port: "{{ port }}/{{ proto }}"
-#    permanent: yes
-#    immediate: yes
-#    state: enabled
-#    zone: "{{ zone }}"
