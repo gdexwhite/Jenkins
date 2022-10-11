@@ -5,12 +5,21 @@ tomcat_link: https://archive.apache.org/dist/tomcat/tomcat-9/v9.0.60/bin/apache-
 
 tomcat_pkg: apache-tomcat-9.0.60.tar.gz
 
+port: "80"
+
+proto: "tcp"
+
+zone: "public"
+
 users_xml: ansible_roles/tomcat9/files/tomcat-users.xml
 
 conf_link: /opt/tomcat/apache-tomcat-9.0.60/conf
 
-#port: "8080"
+context_xml: ansible_roles/tomcat9/files/context.xml
 
-#proto: "tcp"
+meta_inf: /opt/tomcat/apache-tomcat-9.0.60/webapps/manager/META-INF/context.xml
 
-#zone: "public"
+jenkins_pkg: https://get.jenkins.io/war/2.373/jenkins.war
+
+
+webapps_link: /opt/tomcat/apache-tomcat-9.0.60/webapps
