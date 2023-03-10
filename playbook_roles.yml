@@ -1,5 +1,5 @@
 ---
-- hosts: Prod[3]
+- hosts: Prod
   remote_user: ansible
   become: yes
   become_user: ansible
