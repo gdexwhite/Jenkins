@@ -1,6 +1,6 @@
 ---
 - hosts: Prod[2]
-  remote_user: ansible
+#  remote_user: ansible
   become: yes
   roles:
     - tomcat
