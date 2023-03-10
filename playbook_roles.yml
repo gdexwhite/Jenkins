@@ -4,4 +4,4 @@
   remote_user: ansible
   become_user: ansible
   roles:
-    - tomcat9/roles/tomcat9
+    - tomcat9/
