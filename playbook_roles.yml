@@ -1,6 +1,7 @@
 ---
 - hosts: Prod 
   become: yes
+  remote_user: ansible
   become_user: ansible
   roles:
-    - /home/ansible/ansible_Project/tomcat9/roles/tomcat9
+    - tomcat9/roles/tomcat9
