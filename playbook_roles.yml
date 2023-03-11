@@ -1,5 +1,7 @@
 ---
 - hosts: Prod 
   become: true
+  become_user: jenkins
+  become_method: sudo
   roles:
     - tomcat/
