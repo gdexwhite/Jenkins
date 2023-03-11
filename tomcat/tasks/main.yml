@@ -54,7 +54,7 @@
   copy:
     src: "{{ users_xml }}"
     dest: "{{ conf_link }}"
-    remote_src: no
+    remote_src: yes
     owner: tomcat
     group: tomcat
     mode: 0755
@@ -64,7 +64,7 @@
   copy:
     src: "{{ context_xml }}"
     dest: "{{ meta_inf }}"
-    remote_src: no
+    remote_src: yes
     owner: tomcat
     group: tomcat
     mode: 0755
@@ -84,7 +84,7 @@
   copy:
     src: /home/ansible/ansible-roles/tomcat/files/tomcat.service
     dest: /etc/systemd/system/
-    remote_src: no
+    remote_src: yes
     owner: root
     group: root
     mode: 0755
