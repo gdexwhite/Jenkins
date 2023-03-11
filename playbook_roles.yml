@@ -1,7 +1,5 @@
 ---
 - hosts: Prod 
-  become: yes
-  remote_user: ansible
-  become_user: ansible
+  become: true
   roles:
     - tomcat/
