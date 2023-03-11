@@ -1,19 +1,19 @@
 pipeline {
-    agent any
-    stages {
-      stage ('Git checkout') {
-        steps {
-              git branch: 'main', changelog: false, credentialsId: 'Ola', poll: false, url: 'https://github.com/adeolaoruku/tomcat9.git' 
-            }
-        }       
-         
-       stage ('Execute Ansible Playbook') {
-        steps {
-             ansiblePlaybook credentialsId: 'Ansible_Tomcat', installation: 'Ansible_Automation', inventory: '/home/tomcat/.jenkins/workspace/ansible-job1/inventory/hosts', playbook: '/home/tomcat/.jenkins/workspace/ansible-job1/playbook_roles.yml' 
-            }
-        }    
-        
-    }
+  agent any
+  stages {
+    stage('Git Checkout') {
+	  steps {
+	    git branch: 'main', url: 'https://github.com/olaoruku007/tomcat9.git'
+	  }
+	}
+	
+	stage('Run Ansible Playbook Role') {
+	  steps {
+	    ansiblePlaybook colorized: true, credentialsId: 'Ansible', installation: 'ansible_auto', inventory: '/home/tomcat/.jenkins/workspace/Ansible-Auto-Pipeline/hosts', playbook: '/home/tomcat/.jenkins/workspace/Ansible-Auto-Pipeline/playbook_roles.yml'
+	  }
+	}				
+	
+  }
 }
 
 
