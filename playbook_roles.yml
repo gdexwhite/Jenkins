@@ -1,6 +1,6 @@
 ---
 - hosts: Prod 
   become: yes
-  remote_user: jenkins
+  remote_user: ansible
   roles:
     - tomcat/
