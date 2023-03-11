@@ -84,7 +84,7 @@
   copy:
     src: tomcat/files/tomcat.service
     dest: /etc/systemd/system/
-    remote_src: yes
+    remote_src: no
     owner: root
     group: root
     mode: 0755
