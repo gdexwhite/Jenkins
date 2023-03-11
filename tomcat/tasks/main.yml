@@ -1,12 +1,6 @@
 ---
 # tasks file for tomcat9
 
-- name: upgrade all packages
-  become: true
-  yum:
-    name: '*'
-    state: latest
-
 - name: install the latest version of java
   yum:
     name: java-11-openjdk
