@@ -82,7 +82,7 @@
 
 - name: copy tomcat service to systemd
   copy:
-    src: /home/ansible/ansible-roles/tomcat/files/tomcat.service
+    src: tomcat/files/tomcat.service
     dest: /etc/systemd/system/
     remote_src: yes
     owner: root
