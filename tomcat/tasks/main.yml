@@ -44,7 +44,7 @@
   unarchive:
     src: "/opt/tomcat/{{ tomcat_pkg }}"
     dest: /opt/tomcat/
-    remote_src: yes
+    remote_src: no
     mode: 0755
     owner: tomcat
     group: tomcat
