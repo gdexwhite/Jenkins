@@ -11,11 +11,11 @@ proto: "tcp"
 
 zone: "public"
 
-users_xml: ansible_roles/tomcat9/files/tomcat-users.xml
+users_xml: tomcat/files/tomcat-users.xml
 
 conf_link: /opt/tomcat/apache-tomcat-9.0.60/conf
 
-context_xml: ansible_roles/tomcat9/files/context.xml
+context_xml: tomcat/files/context.xml
 
 meta_inf: /opt/tomcat/apache-tomcat-9.0.60/webapps/manager/META-INF/context.xml
 
