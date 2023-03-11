@@ -54,7 +54,7 @@
   copy:
     src: "{{ users_xml }}"
     dest: "{{ conf_link }}"
-    remote_src: yes
+    remote_src: no
     owner: tomcat
     group: tomcat
     mode: 0755
@@ -64,7 +64,7 @@
   copy:
     src: "{{ context_xml }}"
     dest: "{{ meta_inf }}"
-    remote_src: yes
+    remote_src: no
     owner: tomcat
     group: tomcat
     mode: 0755
