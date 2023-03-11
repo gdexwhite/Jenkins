@@ -1,5 +1,9 @@
 ---
 # tasks file for tomcat9
+- name: upgrade all packages
+  yum:
+    name: '*'
+    state: latest
 
 - name: install the latest version of java
   yum:
@@ -50,6 +54,7 @@
   copy:
     src: "{{ users_xml }}"
     dest: "{{ conf_link }}"
+    remote_src: no
     owner: tomcat
     group: tomcat
     mode: 0755
@@ -59,6 +64,7 @@
   copy:
     src: "{{ context_xml }}"
     dest: "{{ meta_inf }}"
+    remote_src: no
     owner: tomcat
     group: tomcat
     mode: 0755
@@ -76,8 +82,9 @@
 
 - name: copy tomcat service to systemd
   copy:
-    src: ansible_roles/tomcat9/files/tomcat.service
+    src: /home/ansible/ansible-roles/tomcat/files/tomcat.service
     dest: /etc/systemd/system/
+    remote_src: no
     owner: root
     group: root
     mode: 0755
@@ -95,6 +102,9 @@
   service:
     name: tomcat.service
     enabled: yes
+  notify:
+    - Restart tomcat service
+
 
 - name: download jenkins
   get_url:
@@ -103,4 +113,5 @@
     owner: root
     group: root
     mode: 0755
+
 
