@@ -2,4 +2,4 @@
 - hosts: Prod 
   become: yes
   roles:
-    - /tomcat9/roles/
+    - tomcat/
